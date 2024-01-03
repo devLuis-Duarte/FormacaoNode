@@ -6,13 +6,27 @@ app.get("/", function(req, res){//rota da página inicial passando como parâmet
     //res.send("ola"); Não funciona, só pode haver uma resposta ao usuário
 }); 
 
-app.get("/blog", function(req, res){
-    res.send("bem vindo ao meu blog");
+app.get("/blog/:artigo?", function(req, res){ //passando parâmetro opcional com o comando '?'
+    var artigo = req.params.artigo;
+
+    if(artigo){ //caso tenha o artigo na rota
+        res.send(`<h2>Artigo: ${artigo}</h2>`);
+    }else { //caso não tenhao artigo na rota
+        res.send("bem vindo ao meu blog: www.guiadoprogramador.com");
+    }
 });
 
 app.get("/canal/youtube", function(req, res){
     res.send("bem vindo ao meu canal");
 });
+
+app.get("/ola/:nome/:empresa", function(req, res){ //criando parâmetros obrigatórios na rota
+    //req são os dados enviados pelo usuário
+    //res são os dados de resposta para o usuário
+    var nome = req.params.nome //pegando o nome do usuário no parâmetro e adicionando na variável nome
+    var empresa = req.params.empresa
+    res.send(`<h1>Oi ${nome} do ${empresa}</h1>`); //enviando a informação do nome do usuários
+})
 
 //criando servidor
 app.listen(4000, function(error){ 
